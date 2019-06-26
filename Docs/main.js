@@ -13,18 +13,21 @@ function draw() {
 }
 
 function randomShape() {
-	var numShapes = 3;
+	var numShapes = 4;
 	var chosenShape = Math.floor(Math.random() * numShapes);
+	var centerX = Math.random()*700;
+	var	centerY = Math.random()*700;
+	var size = Math.random()*50 + 25;
 
 	fill(Math.random()*255,Math.random()*255,Math.random()*255);
 	if(chosenShape === 0){
-		square(Math.random()*700, Math.random()*700, Math.random()*50  + 25);
+		square(centerX, centerY, size);
 	}else if(chosenShape === 1){
-		circle(Math.random()*700, Math.random()*700, Math.random()*50 + 25)
+		circle(centerX, centerY, size)
 	}else if(chosenShape === 2){
-		centerX = Math.random()*700;
-		centerY = Math.random()*700;
-		size = Math.random()*50 + 25;
 		triangle(centerX + size, centerY + size, centerX - size, centerY + size, centerX, centerY - size);
+	}else if(chosenShape === 3){
+		triangle(centerX + size, centerY + size, centerX - size, centerY + size, centerX, centerY - size);
+		triangle(centerX + size, centerY - size, centerX - size, centerY - size, centerX, centerY + size);	
 	}
 }
