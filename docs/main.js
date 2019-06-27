@@ -4,7 +4,6 @@ function setup() {
   background("#facade");
   noStroke();
   noLoop();
-  frameRate(30);
 }
 
 function draw() {
@@ -18,9 +17,10 @@ function randomBird(){
 	var	centerY = Math.random()*700;
 	var size = Math.random()*50 + 25;
 	var color = '#'+Math.floor(Math.random()*16777215).toString(16);
-
-	var bird = new Bird(centerX, centerY, size, color);
 	var angle = Math.random() * Math.PI * 2;
+
+	var bird = new Bird(centerX, centerY, angle, size, color);
+	
 	bird.draw(angle);
 }
 
@@ -46,17 +46,18 @@ function randomShape() {
 
 class Bird {
 
-	constructor(x, y, size, color){
+	constructor(x, y, angle, size, color){
 		this.x = x;
 		this.y = y;
+		this.angle = angle;
 		this.size = size;
 		this.color = color;
 	}
 
-	draw(angle){
+	draw(){
 		push();
 		translate(this.x, this.y);
-		rotate(angle);
+		rotate(this.angle);
 
 		// legs beak and eye
 		fill("orange");
