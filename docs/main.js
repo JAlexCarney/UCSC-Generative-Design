@@ -3,6 +3,7 @@ function setup() {
   createCanvas(700, 700);
   background("#facade");
   noStroke();
+  noLoop();
   frameRate(30);
 }
 
@@ -55,16 +56,16 @@ class Bird {
 		push();
 		translate(this.x, this.y);
 
-		// body
-		fill(this.color);
-		triangle(0, this.size, -this.size, -this.size, this.size, -this.size);
-
 		// legs beak and eye
 		fill("orange");
-		circle(0, this.size/4, this.size/8);
+		circle(0, -this.size/4, this.size/8);
 		triangle(0, 0, this.size, 0, 0, -this.size);
 		rect(this.size/2, this.size, this.size/4, this.size/2);
 		rect(-this.size/2, this.size, this.size/4, this.size/2);
+
+		// body
+		fill(this.color);
+		triangle(0, this.size, -this.size, -this.size, this.size, -this.size);
 
 		pop();
 	}
