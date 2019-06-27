@@ -57,14 +57,14 @@ class Bird {
 
 		// body
 		fill(this.color);
-		triangle(0, size, -size, -size, size, -size);
+		triangle(0, this.size, -this.size, -this.size, this.size, -this.size);
 
 		// legs beak and eye
 		fill("orange");
-		circle(0, size/4, size/8);
-		triangle(0, 0, size, 0, 0, -size);
-		rect(size/2, size, size/4, size/2);
-		rect(-size/2, size, size/4, size/2);
+		circle(0, this.size/4, this.size/8);
+		triangle(0, 0, this.size, 0, 0, -this.size);
+		rect(this.size/2, this.size, this.size/4, this.size/2);
+		rect(-this.size/2, this.size, this.size/4, this.size/2);
 
 		pop();
 	}
