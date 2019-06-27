@@ -1,15 +1,30 @@
 
+var birds = [];
+var worldH = 700;
+var worldW = 700;
+
 function setup() {
-  createCanvas(700, 700);
-  background("#facade");
+  createCanvas(worldW, worldW);
   noStroke();
-  noLoop();
+  
+  for(var i = 0; i < 30; i++){
+	birds[i] = randomBird();
+  }
+}
+
+var count = 0;
+function birdclick(){
+	var par = document.getElementById("dynamicP");
+	count++;
+	par.innerHTML = "bird has been clicked " + count + " times!"; 
 }
 
 function draw() {
-	for(var i = 0; i < 30; i++){
-		randomBird();
-	}
+	background("#facade");
+  	for(var i = 0; i < birds.length; i++){
+  		birds[i].update();
+  		birds[i].draw();
+  	}
 }
 
 function randomBird(){
@@ -21,7 +36,12 @@ function randomBird(){
 
 	var bird = new Bird(centerX, centerY, angle, size, color);
 	
-	bird.draw(angle);
+	var ySpeed = (Math.random()*2) + 0.25;
+	var rotationSpeed = (ySpeed * 0.025);
+
+	bird.setSpeed(0, ySpeed, rotationSpeed);
+
+	return bird;
 }
 
 function randomShape() {
@@ -52,6 +72,14 @@ class Bird {
 		this.angle = angle;
 		this.size = size;
 		this.color = color;
+		this.xSpeed = 0;
+		this.ySpeed = 0;
+		this.rotationSpeed = 0;
+	}
+
+	update(){
+		this.move(this.xSpeed, this.ySpeed);
+		this.rotate(this.rotationSpeed);
 	}
 
 	draw(){
@@ -74,6 +102,25 @@ class Bird {
 		circle(0, -this.size/4, this.size/8);
 
 		pop();
+	}
+
+	setSpeed(x, y, theta){
+		this.xSpeed = x;
+		this.ySpeed = y;
+		this.rotationSpeed = theta;
+	}
+
+	move(x, y){
+		this.x += x;
+		this.y += y;
+
+		if(this.y > worldH + this.size*2){
+			this.y = -this.size*2;
+		}
+	}
+
+	rotate(theta){
+		this.angle += theta;
 	}
 
 }
