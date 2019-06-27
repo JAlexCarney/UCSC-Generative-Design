@@ -8,8 +8,18 @@ function setup() {
 
 function draw() {
 	for(var i = 0; i < 30; i++){
-		randomShape();
+		randomBird();
 	}
+}
+
+function randomBird(){
+	var centerX = Math.random()*700;
+	var	centerY = Math.random()*700;
+	var size = Math.random()*50 + 25;
+	var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+
+	var bird = new Bird(centerX, centerY, size, color);
+	bird.draw();
 }
 
 function randomShape() {
@@ -30,4 +40,33 @@ function randomShape() {
 		triangle(centerX + size, centerY + size, centerX - size, centerY + size, centerX, centerY - size);
 		triangle(centerX + size, centerY - size, centerX - size, centerY - size, centerX, centerY + size);	
 	}
+}
+
+class Bird {
+
+	constructor(x, y, size, color){
+		this.x = x;
+		this.y = y;
+		this.size = size;
+		this.color = color;
+	}
+
+	draw(){
+		push();
+		translate(this.x, this.y);
+
+		// body
+		fill(this.color);
+		triangle(0, size, -size, -size, size, -size);
+
+		// legs beak and eye
+		fill("orange");
+		circle(0, size/4, size/8);
+		triangle(0, 0, size, 0, 0, -size);
+		rect(size/2, size, size/4, size/2);
+		rect(-size/2, size, size/4, size/2);
+
+		pop();
+	}
+
 }
