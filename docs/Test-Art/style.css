@@ -1,0 +1,10 @@
+body{
+  background-color: black; 
+  text-align: center;
+}
+
+p {
+  color: white;
+  font: sans-serif;
+  font-size: 20px;
+}

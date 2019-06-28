@@ -1,0 +1,28 @@
+body {
+	background-color: #FF7F2A;
+	color: #FFDD55;
+	text-align: center;
+	font-family: sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+.banner {
+	text-align: left;
+	background-color: #333333;
+	color: white;
+	margin: 0px;
+	padding: 0px;
+	padding-left: 20px;
+	padding-bottom: 5px;
+}
+
+h1, h4 {
+	margin: 0px;
+}
+
+.content {
+	text-align: left;
+	margin: 0px;
+	padding: 0px;
+}
