@@ -69,7 +69,7 @@ function draw() {
   let pitchArray = fft.analyze();
   let indexOfMax = 0;
   for(let i = 0; i < pitchArray.length; i++){
-    if(pitchArray[i] > 100){
+    if(pitchArray[i] > 100*volume){
       indexOfMax = i;
     }
   }
