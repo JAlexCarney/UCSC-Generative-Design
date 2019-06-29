@@ -8,6 +8,7 @@
       
       <!-- Include Libs -->
       <script src = "../libs/p5.js"></script>
+      <script src = "../libs/p5.sound.js"></script>
 
 
       <!-- Include Base code libs -->
@@ -23,6 +24,18 @@
       <h1>J. Alex Carney</h1>
       <h4>CMPM147 Assignment Portfolio</h4>
     </div>
-    <div id="content" class="content"></div>
+    <table>
+      <tr>
+        <td>
+          <div id="content" class="content"></div>    
+        </td>
+        <td>
+          <h1>Audio Visualizer</h1>
+          <h2>Assignment 1</h2>
+          <p><button class="button" onclick="demo();" id="demoButton">Play Demo Audio</button></p>
+          <p>Volume : <input type="range" min="0" max="100" value="50" class="slider" id="volumeSlider" onchange="volumeChange();"></p>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>
