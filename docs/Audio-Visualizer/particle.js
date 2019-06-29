@@ -11,6 +11,9 @@ class Particle {
 		this.life = 0;
 		this.decayRate = 0;
 		this.size = 0;
+		this.saturation = 1.0;
+		this.value = 1.0;
+		this.hue = 0.0;
 	}
 
 	emit(velocity, lifetime){
@@ -48,7 +51,7 @@ class Particle {
 		rect(-this.size/2-this.size/4, this.size, this.size/4, this.size/2);
 
 		// body
-		fill(this.color);
+		fill(this.hue, this.saturation, this.value);
 		triangle(0, -this.size, -this.size, this.size, this.size, this.size);
 
 		// eye
@@ -72,9 +75,17 @@ class Particle {
 		return true;	
 	}
 
+	setSaturation(sat){
+		this.saturation = sat;
+	}
+
+	setValue(val){
+		this.value = val;
+	}
+
 	randomizeVisual(){
 		this.size = Math.random()*50 + 25;
-		this.color = '#'+Math.floor(Math.random()*16777215).toString(16);
+		this.hue = Math.random();
 		this.angle = Math.random() * Math.PI * 2;
 	}
 

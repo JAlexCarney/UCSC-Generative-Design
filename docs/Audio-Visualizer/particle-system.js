@@ -23,7 +23,7 @@ class ParticleSystem {
 	    }
 	}
 
-	emit(){
+	emit(intensity){
 		let i = 0;
 		let particle = this.particles[i];
 		while(particle.isAlive() && i != this.particles.length){
@@ -37,6 +37,8 @@ class ParticleSystem {
 		  let pos = createVector(worldW/2, worldH/2);
 		  let lifetime = floor(Math.random()*100 + 60);
 		  particle.randomizeVisual();
+		  particle.setSaturation(intensity);
+		  particle.setValue(intensity);
 		  particle.emit(vel, lifetime);
 		}
 	}

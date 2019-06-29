@@ -29,11 +29,15 @@
         <td>
           <div id="content" class="content"></div>    
         </td>
-        <td>
+        <td width = "300px">
           <h1>Audio Visualizer</h1>
           <h2>Assignment 1</h2>
           <p><button class="button" onclick="demo();" id="demoButton">Play Demo Audio</button></p>
           <p>Volume : <input type="range" min="0" max="100" value="50" class="slider" id="volumeSlider" onchange="volumeChange();"></p>
+        </td>
+        <td>
+          <h1>Description</h1>
+          <p>The rate that birds are emitted from the center of the circle is tied to the volume of the audio normalized to the volume set by the slider. This value is also shown by the inner light pink circle. The saturation and value of the birds is linked to the pitch of the audio at the time they are emitted. If the pitch is lower the color of the birds is darker and less saturated (closer to black) and if the pitch is higher saturation and value go up and the birds are more colorful.</p>
         </td>
       </tr>
     </table>
