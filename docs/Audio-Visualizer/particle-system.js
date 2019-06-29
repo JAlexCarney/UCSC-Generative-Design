@@ -35,7 +35,7 @@ class ParticleSystem {
 		  let vel = createVector(mag, 0);
 		  vel.rotate(Math.random() * Math.PI * 2);
 		  let pos = createVector(worldW/2, worldH/2);
-		  let lifetime = floor(Math.random()*120 + 60);
+		  let lifetime = floor(Math.random()*100 + 60);
 		  particle.randomizeVisual();
 		  particle.emit(vel, lifetime);
 		}
