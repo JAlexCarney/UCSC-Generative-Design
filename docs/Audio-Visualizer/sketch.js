@@ -58,7 +58,7 @@ function draw() {
   circle(worldW/2, worldH/2, worldW);
 
   // set emit chance based on volume of audio.
-  let emitChance = (amplitude.getLevel()**2) * (1/volume);
+  let emitChance = (amplitude.getLevel() * (1/volume))**2;
   
   // show the volume with an inner circle
   fill("#FACADE");
