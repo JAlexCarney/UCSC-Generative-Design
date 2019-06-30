@@ -1,1 +1,0 @@
-// This file contains a function to draw a bird at a given position with a given color and 

@@ -24,6 +24,10 @@ class ParticleSystem {
 	}
 
 	emit(intensity){
+		if(intensity == null){
+			intensity = 1;
+		}
+
 		let i = 0;
 		let particle = this.particles[i];
 		while(particle.isAlive() && i != this.particles.length){

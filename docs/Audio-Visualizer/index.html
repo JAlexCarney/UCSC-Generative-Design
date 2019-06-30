@@ -13,7 +13,6 @@
 
       <!-- Include Base code libs -->
       <script src = "sketch.js"></script>
-      <script src = "bird.js"></script>
       <script src = "particle.js"></script>
       <script src = "particle-system.js"></script>
 
@@ -34,6 +33,9 @@
           <h2>Assignment 1</h2>
           <p><button class="button" onclick="demo();" id="demoButton">Play Demo Audio</button></p>
           <p>Volume : <input type="range" min="0" max="100" value="50" class="slider" id="volumeSlider" onchange="volumeChange();"></p>
+          <p><button class="button" onclick="useMic();" id="micButton">Use Defualt Microphone</button></p>
+          <p>Microphone Sensitivity : <input type="range" min="0" max="100" value="50" class="slider" id="sensitivitySlider" onchange="sensitivityChange();"></p>
+          <p>NOTE: if mic input is not working play and stop demo song to start audio context.
         </td>
         <td>
           <h1>Description</h1>
