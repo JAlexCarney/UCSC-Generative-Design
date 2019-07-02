@@ -57,6 +57,21 @@ td {
   width: 100%;
 }
 
+.HomeButton {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  background-color: #111111;
+  border: none;
+  color: #FFDD55;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+}
+
 /*CSS taken from W3Schools https://www.w3schools.com/howto/howto_js_rangeslider.asp*/
 .slider {
   -webkit-appearance: none;
