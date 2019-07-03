@@ -90,7 +90,6 @@ function draw() {
       }
     }
     intensity = (indexOfMax/pitchArray.length);
-    console.log("I = " + intensity + ", EC = " + emitChance + " , Using Demo input");
   }else if(usingMic){
     let vol = micIn.getLevel() * sensitivity;
     if(vol > 1){vol = 1;}
@@ -114,12 +113,11 @@ function draw() {
       }
     }
     intensity = (indexOfMax/max);
-    console.log("I = " + intensity + ", EC = " + emitChance + " , Using mic input");
   }
   // randomly emit up to 5 particles with the given intensity
   for(let i = 0; i < 5; i++){
     if(Math.random() < emitChance){
-      particleSystem.emit(intensity);
+      particleSystem.emitRandom(intensity);
     }
   }
 

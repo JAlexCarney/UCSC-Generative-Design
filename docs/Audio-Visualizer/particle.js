@@ -96,5 +96,4 @@ class Particle {
 	rotate(theta){
 		this.angle += theta;
 	}
-
 }

@@ -23,27 +23,27 @@ class ParticleSystem {
 	    }
 	}
 
-	emit(intensity){
-		if(intensity == null){
-			intensity = 1;
-		}
-
+	emit(vel, lifetime, intensity){
 		let i = 0;
 		let particle = this.particles[i];
 		while(particle.isAlive() && i != this.particles.length){
 		  particle = this.particles[i];
 		  i++;
 		}
-		if(i != this.particles.length){
-		  let mag = Math.random() + 1;
-		  let vel = createVector(mag, 0);
-		  vel.rotate(Math.random() * Math.PI * 2);
-		  let pos = createVector(worldW/2, worldH/2);
-		  let lifetime = floor(Math.random()*100 + 60);
-		  particle.randomizeVisual();
-		  particle.setSaturation(intensity);
-		  particle.setValue(intensity);
-		  particle.emit(vel, lifetime);
+		particle.randomizeVisual();
+		particle.setSaturation(intensity);
+		particle.setValue(intensity);
+		particle.emit(vel, lifetime);
+	}
+
+	emitRandom(intensity){
+		if(intensity == null){
+			intensity = 1;
 		}
+	  	let mag = Math.random() + 1;
+	  	let vel = createVector(mag, 0);
+		vel.rotate(Math.random() * Math.PI * 2);
+		let lifetime = floor(Math.random()*100 + 60);
+		this.emit(vel, lifetime, intensity);
 	}
 }
