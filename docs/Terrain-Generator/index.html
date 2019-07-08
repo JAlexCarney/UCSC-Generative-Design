@@ -1,0 +1,51 @@
+<html lang="en">
+  <head>
+      <meta charset="utf-8"/>
+      <title> P5.JS Test </title>
+
+      <!-- Casscading Style Sheet -->
+      <link rel="stylesheet" type="text/css" href="style.css">
+      
+      <!-- Include Libs -->
+      <script src = "../libs/p5.js"></script>
+
+
+      <!-- Include Base code libs -->
+      <script src = "sketch.js"></script>
+      <script src = "world-generator.js"></script>
+      <script src = "input.js"></script>
+
+  </head>
+
+  <body>
+    <div class="banner">
+      <table style="width: 100%;">
+        <tr>
+          <td style="text-align: left; width: 50%;">
+            <h1 class="title">J. Alex Carney</h1>
+            <h4 class="title">CMPM147 Assignment Portfolio</h4>
+          </td>
+          <td style="text-align: right; width: 50%; vertical-align: center; height: 100%;">
+            <a class="HomeButton" href="../">Home</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <table>
+      <tr>
+        <td>
+          <div id="content" class="content"></div>    
+        </td>
+        <td width = "300px">
+          <h1>Terrain Generator</h1>
+          <h2>Assignment 2</h2>
+          <p><button class="button" onclick="generate();" id="generateButton">Generate World</button></p>
+          <p>Noise Scale :<input type="range" min="1" max="50" value="20" class="slider" id="scaleSlider"></p>
+          <p>Amplitude :<input type="range" min="5" max="50" value="25" class="slider" id="amplitudeSlider"></p>
+          <p>Width :<input type="range" min="32" max="100" value="60" class="slider" id="widthSlider"></p>
+          <p>Seed :<input type="range" min="0" max="500" value="60" class="slider" id="seedSlider"></p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
