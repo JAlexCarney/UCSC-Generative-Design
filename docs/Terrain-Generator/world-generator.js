@@ -6,6 +6,7 @@ class WorldGenerator {
 		this.width = null;
 		this.amplitude = null;
 		this.seed = null;
+		this.worldData = [];
 
 		this.getInput();
 	}
@@ -21,35 +22,57 @@ class WorldGenerator {
 		// create world
 		let cubeSize = this.cubeSize;
 		for(let x = 0; x < width; x++){
+			this.worldData[x] = [];
 			for(let y = 0; y < depth; y++){
 				
-				let noiseVal = noise(x/this.noiseScale, y/this.noiseScale);
-				let z = noiseVal * height;
+				this.worldData[x][y] = noise(x/this.noiseScale, y/this.noiseScale);
 
+				// place player
+				if(x == floor(width/2) && y == floor(depth/2)){
+					cameraPos = createVector(x*this.cubeSize, y*this.cubeSize, this.worldData[x][y] * height * this.cubeSize + 5*this.cubeSize);
+					cameraAt = createVector(x*this.cubeSize, y*this.cubeSize + this.cubeSize, this.worldData[x][y] * height * this.cubeSize + 4*this.cubeSize);
+    				playerCam.camera(cameraPos.x, cameraPos.y, cameraPos.z, cameraAt.x, cameraAt.y, cameraAt.z, 0, 0, -1);
+					console.log(cameraPos);
+				}
+			}
+		}
 
-				let terTexture = this.terrainDic[this.terrainType(noiseVal)];
+		// reset camera
+		resetView();
+	}
+
+	draw(){
+		let width = this.width;
+		let depth = this.width;
+		let height = this.amplitude;
+		let cubeSize = this.cubeSize;
+
+		// render world
+		for(let x = 0; x < width; x++){
+			for(let y = 0; y < depth; y++){
+				
+				let z = this.worldData[x][y] * height;
+
+				let terTexture = this.terrainDic[this.terrainType(this.worldData[x][y])];
 
 				push();
 				translate(x*cubeSize, y*cubeSize, z*cubeSize);
-				for(; z > 0; z--){
+				let startZ = z;
+				for(; z > startZ - 3; z--){
 					texture(terTexture);
 					box(cubeSize);
 					translate(0, 0, -cubeSize);
 				}
 				pop();
 			}
-		}
+		}		
 
-		// create water
+		// draw water
 		push();
 		translate(width * cubeSize * 0.5, depth  * cubeSize * 0.5, height * cubeSize * 0.55);
 		texture(this.terrainDic["waterSurface"]);
 		plane(width*cubeSize, depth*cubeSize);//, width, depth);
 		pop();
-
-		// reset camera
-		camera(canvasSize/2, canvasSize/2, 1.5 * this.cubeSize * this.width, canvasSize/2, canvasSize/2, 0, 0, 1, 0);
-  		perspective();
 	}
 
 	terrainType(val){
