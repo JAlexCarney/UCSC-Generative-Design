@@ -87,7 +87,7 @@ class DialogBox {
 
 	playSong(){
 		for(let i = 0; i < this.song.length; i++){
-			this.synth.play(this.song[i] + "1", 1, i * 1000, 1000);
+			this.synth.play(this.song[i].toUpperCase() + "2", 1, i, 1);
 		}
 	}
 
