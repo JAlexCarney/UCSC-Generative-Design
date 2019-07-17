@@ -1,13 +1,37 @@
 // movement functions
 function keyIn(){
-	let MoveSpeed = 10;
+	let moveSpeed = 1.5;
 	if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-		// move left
+		player.move(-moveSpeed, 0);
   	} if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
-    	// move right
+    	player.move(moveSpeed, 0);
+  	} if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
+    	player.move(0,moveSpeed);
   	} if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
-    	// jump
-  	} if (keyIsDown()){
-  		// interact
+    	player.move(0,-moveSpeed);
+  	} 
+}
+
+function keyPressed(){
+	if (keyIsDown(32)){
+  		// spacebar
+  		// draw dialog box
+  		if(distance(player.x, player.y, npc.x, npc.y) < 200 && dialogBox.visable == false){
+  		  dialogBox.visable = true;	
+  		  dialogBox.setPrompt("Hello, my name is Bob. would you like to hear my song? (y/n)");	
+  		  dialogBox.displayPrompt();
+  		}
+  	}
+  	if (keyIsDown(89)){
+  		// y
+  		if(dialogBox.visable && dialogBox.mode == "dialog"){
+  			dialogBox.setSong(npc.sing());
+  			dialogBox.displayMusic();
+  			dialogBox.playSong();
+  		}
+  	}
+  	if (keyIsDown(78)){
+  		// n
+  		dialogBox.visable = false;
   	}
 }
