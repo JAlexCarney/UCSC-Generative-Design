@@ -11,7 +11,6 @@ class GenerativeGrammar{
 		for(let i = 0; i < generations; i++){
 			result = this.nextGen(result);
 		}
-		console.log(result);
 		return result;
 	}
 
@@ -33,7 +32,6 @@ class GenerativeGrammar{
 				result += axiom[i];
 			}
 		}
-		console.log(result);
 		return result;
 	}
 }
