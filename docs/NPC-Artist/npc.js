@@ -20,7 +20,7 @@ class NPC {
 	}
 
 	draw(){
-		drawBird(this.x, this.y, this.size, this.color, "right");
+		drawBird(this.x, this.y, this.size, this.color, "right", "down");
 	}
 
 	sing(){

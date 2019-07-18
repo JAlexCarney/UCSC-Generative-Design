@@ -1,3 +1,5 @@
+let synth = null;
+
 class DialogBox {
 	constructor(x, y, width, height){
 		this.x = x;
@@ -9,9 +11,10 @@ class DialogBox {
 		this.dialog = "";
 		this.mode = "song";
 		this.visable = false;
+		this.indexOfPlaying = -1;
 
-		this.synth = new p5.PolySynth();
-		this.synth.connect();
+		synth = new p5.PolySynth();
+		synth.connect();
 
 		//textFont(inconsolata);
   		textSize(this.height / 6);
@@ -56,7 +59,11 @@ class DialogBox {
 					}else if(this.song[i] == 'e' || this.song[i] == 'E'){
 						y = (-3/16) * this.height;
 					}
-					fill(0);
+					if(i == this.indexOfPlaying){
+						fill("#facade");
+					}else{
+						fill(0);
+					}
 					ellipse(0, y, this.height/8, this.height/8);
 					fill(255);
 					ellipse(0, y, this.height/9, this.height/14);
@@ -86,9 +93,36 @@ class DialogBox {
 	}
 
 	playSong(){
-		for(let i = 0; i < this.song.length; i++){
-			this.synth.play(this.song[i].toUpperCase() + "2", 1, i, 1);
+		let i = 0;
+		for(; i < this.song.length; i++){
+			let midiNumber = 0;
+			if(this.song[i] == 'f' || this.song[i] == 'F'){
+				midiNumber = 65;
+			}else if(this.song[i] == 'g' || this.song[i] == 'G'){
+				midiNumber = 67;
+			}else if(this.song[i] == 'a' || this.song[i] == 'A'){
+				midiNumber = 69;
+			}else if(this.song[i] == 'b' || this.song[i] == 'B'){
+				midiNumber = 71;
+			}else if(this.song[i] == 'c' || this.song[i] == 'C'){
+				midiNumber = 72;
+			}else if(this.song[i] == 'd' || this.song[i] == 'D'){
+				midiNumber = 74;
+			}else if(this.song[i] == 'e' || this.song[i] == 'E'){
+				midiNumber = 76;
+			}
+			setTimeout(this.playNote, i * 1000/3, midiNumber, i);
 		}
+		setTimeout(this.resetNote, (i+1) * 1000/3);
+	}
+
+	resetNote(){
+		dialogBox.indexOfPlaying = -1;
+	}
+
+	playNote(note, index){
+		dialogBox.indexOfPlaying = index;
+		synth.play(midiToFreq(note), 1, 0, 0.2);
 	}
 
 	setPrompt(dialog){

@@ -23,6 +23,9 @@ function setup() {
   // create Player
   player = new Player(width - 120, groundLevel - 75, 50, "pink");
 
+  synth = new p5.PolySynth();
+  synth.connect();
+
   //set drawing style
   noStroke();
   frameRate(60);
@@ -87,7 +90,7 @@ function drawIsland(){
   endShape(CLOSE);
 }
 
-function drawBird(x, y, size, color, direction) {
+function drawBird(x, y, size, color, direction, legs) {
   push();
   translate(x, y);
 
@@ -98,9 +101,13 @@ function drawBird(x, y, size, color, direction) {
   // legs beak and eye
   fill("#FF7F2A");
   triangle(0, 0, size, 0, 0, size);
-  rect(size/2, size, size/4, size/2);
-  rect(-3*size/4, size, size/4, size/2);
-
+  if(legs == "down"){  
+    rect(size/2, size, size/4, size/2);
+    rect(-3*size/4, size, size/4, size/2);
+  }else {
+    rect(size/2, size, size/4, size/4);
+    rect(-3*size/4, size, size/4, size/4);
+  }
   // body
   fill(color);
   triangle(0, -size, -size, size, size, size);

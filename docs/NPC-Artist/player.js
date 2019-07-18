@@ -4,10 +4,25 @@ class Player {
 		this.y = y;
 		this.size = size;
 		this.color = color;
+		this.isMoving = false;
+		this.frame = 0;
 	}
 
 	draw(){
-		drawBird(this.x, this.y, this.size, this.color, "left");
+		if(this.isMoving){
+			if(this.frame > 15){
+				drawBird(this.x, this.y, this.size, this.color, "left", "up");	
+			}else {
+				drawBird(this.x, this.y, this.size, this.color, "left", "down");
+			}
+			if(this.frame == 30){
+				this.frame = 0;
+			}
+			this.frame++;
+		}else{
+			drawBird(this.x, this.y, this.size, this.color, "left", "down");
+			this.frame = 0;
+		}
 	}
 
 	move(hor, vert){
@@ -17,6 +32,11 @@ class Player {
 			this.x = newX;
 			this.y = newY;
 		}
+		this.isMoving = true;
+	}
+
+	stop(){
+		this.isMoving = false;
 	}
 
 	checkBoundry(x, y){
