@@ -7,7 +7,6 @@ let dialogBox = null;
 
 function setup() {
   let div = document.getElementById("content");
-  // enable webGL mode
   canvas = createCanvas(800, 600);
   canvas.parent(div);
 

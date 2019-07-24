@@ -3,8 +3,10 @@ let race;
 let camera;
 
 function setup() {
+  let div = document.getElementById("content");
   createCanvas(640, 400, WEBGL);
   setAttributes('antialias', true);
+  div.appendChild(canvas);
 
   // Initialize box2d physics and create the world
   world = createWorld();
@@ -34,7 +36,7 @@ function setup() {
 
 function draw() {
     if (race.running) {
-        background(240);
+        background("#FF7F2A");
     }
 
     race.update();

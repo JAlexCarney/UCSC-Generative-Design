@@ -1,5 +1,9 @@
 <html>
     <head>
+
+        <!-- Casscading Style Sheet -->
+        <link rel="stylesheet" type="text/css" href="style.css">
+        
         <!-- Load p5.js for rendering -->
         <script src="lib/p5.min.js"></script>
 
@@ -18,5 +22,31 @@
         <script src="sketch.js"></script>
   </head>
   <body>
+    <div class="banner">
+      <table style="width: 100%;">
+        <tr>
+          <td style="text-align: left; width: 50%;">
+            <h1 class="title">J. Alex Carney</h1>
+            <h4 class="title">CMPM147 Assignment Portfolio</h4>
+          </td>
+          <td style="text-align: right; width: 50%; vertical-align: center; height: 100%;">
+            <a class="HomeButton" href="../">Home</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <table>
+      <tr>
+        <td>
+          <div id="content" class="content"></div>    
+        </td>
+        <td>
+          <h1>Discription</h1>
+          <p>
+            This project uses a genetic algorithm to generate cars. Their fitness is jugded by their distance and their are bread using rullett wheel selection.
+          </p>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>
