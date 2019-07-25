@@ -1,6 +1,9 @@
 let world;
 let race;
 let camera;
+let ga;
+let cars;
+let currentLeaderBoard;
 
 function setup() {
   let div = document.getElementById("content");
@@ -17,12 +20,13 @@ function setup() {
   camera.setPosition(0, 0, 0);
 
   // Create a list of cars
-  let cars = []
-  for(let i = 0; i < 10; i++) {
-      let feats = Car.randomFeatures();
+  let popSize = 20;
+  ga = new GeneticAlgorithm(popSize, 20, fitnessFunction, 0.2);
+  cars = new Array(popSize);
+  for(let i = 0; i < ga.popSize; i++) {
       let pos = createVector(0, -100);
-      let car = new Car(pos.x, pos.y, "car" + i, feats);
-      cars.push(car);
+      let car = new Car(pos.x, pos.y, "car" + i, ga.population[i].gens);
+      cars[i] = car;
   }
 
   // Create a terrain
@@ -65,17 +69,38 @@ function draw() {
 // ========================================
 function raceOverCallback(finalLeaderboards) {
     console.log("race over!");
-    console.log(finalLeaderboards);
+    console.log(finalLeaderboards); 
+    currentLeaderBoard = finalLeaderboards;
+
+    //evolve
+    ga.evolve();
 
     // Restart race with new cars
-    let cars = []
-    for(let i = 0; i < 10; i++) {
-        let feats = Car.randomFeatures();
+    for(let i = 0; i < ga.popSize; i++) {
         let pos = createVector(0, -100);
-        let car = new Car(pos.x, pos.y, "car" + i, feats);
-        cars.push(car);
+        let car = new Car(pos.x, pos.y, "car" + i, ga.population[i].gens);
+        cars[i] = car;
     }
+
+    // update display
+    document.getElementById("genCount").innerHTML = "Generation : " + ga.generation;
 
     race.setCars(cars);
     race.start();
+}
+
+
+function fitnessFunction(gene){
+  for(let i = 0; i < currentLeaderBoard.length; i++){
+    let isCar = true;
+    for(let j = 0; j < gene.length; j++){
+      if(gene[j] != currentLeaderBoard[i].car.feats[j]){
+        isCar = false;
+      }
+    }
+    if(isCar){
+      return currentLeaderBoard[i].progress;
+    }
+  }
+  return -1;
 }

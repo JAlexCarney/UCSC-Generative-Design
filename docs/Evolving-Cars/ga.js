@@ -8,8 +8,9 @@ class Individual {
     }
 
     init() {
-        for(let i = 0; i < this.indSize; i++) {
-            this.gens[i] = int(random(2));
+        let feats = Car.randomFeatures();
+        for(let i = 0; i < this.indSize; i++){
+            this.gens[i] = feats[i];
         }
     }
 }
@@ -19,6 +20,8 @@ class GeneticAlgorithm {
         this.indSize = indSize;
         this.popSize = popSize;
         this.fitFunc = fitFunc;
+        this.mutationRate = mutationRate;
+        this.generation = 1;
 
         this.init();
     }
@@ -40,13 +43,13 @@ class GeneticAlgorithm {
 
         this.population = newPopulation;
 
-        this.evaluate();
-        return this.best();
+        this.generation += 1;
+        //this.evaluate();
+        //return this.best();
     }
 
     evaluate() {
-        for(let i = 0; i < this.popSize; i++) {
-            let individual = this.population[i];
+        for(let individual of this.population) {
             individual.fitness = this.fitFunc(individual.gens)
         }
     }
@@ -64,7 +67,27 @@ class GeneticAlgorithm {
     }
 
     rouletteWheel() {
+        // normalize fitnesses
+        let totalFitness = 0;
+        for(let pop of this.population){
+            totalFitness += pop.fitness;
+        }
+        for(let pop of this.population){
+            pop.fitness /= totalFitness;
+        }
 
+        let r = random();
+        let fitnessSoFar = 0;
+
+        for(let i = 0; i < this.popSize; i++) {
+            fitnessSoFar += this.population[i].fitness;
+
+            if(r < fitnessSoFar) {
+                return this.population[i];
+            }
+        }
+
+         return this.population[this.population.length - 1];
     }
 
     reproduce(matingPool) {
@@ -81,11 +104,30 @@ class GeneticAlgorithm {
     }
 
     crossover(parentA, parentB) {
-
+        let child = new Individual(this.indSize);
+        let newGene = new Array(this.indSize);
+        for(let i = 0; i < this.indSize; i++){
+            if(Math.random() < 0.5){
+                newGene[i] = parentA.gens[i];
+            }else{
+                newGene[i] = parentB.gens[i];
+            }
+        }
+        child.gens = newGene;
+        return child;
     }
 
     mutate(newPopulation) {
-
+        for(let pop of newPopulation){
+            if(Math.random() <= this.mutationRate){
+                let feats = Car.randomFeatures();
+                for(let i = 0; i < 5; i++){
+                    let index = floor(Math.random()*this.indSize);
+                    console.log(pop)
+                    pop.gens[index] = feats[index]; 
+                }
+            }
+        }
     }
 
     best() {
