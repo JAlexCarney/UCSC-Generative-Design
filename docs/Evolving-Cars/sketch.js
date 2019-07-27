@@ -5,12 +5,23 @@ let ga;
 let cars;
 let currentLeaderBoard;
 let performanceHistory;
+let avgPerformanceHistory;
+let font;
+let BestCar;
+let displayMode = "best";
+
+function preload() {
+  font = loadFont('Oswald-Medium.ttf');
+}
 
 function setup() {
   let div = document.getElementById("content");
-  createCanvas(640, 400, WEBGL);
+  createCanvas(640, 600, WEBGL);
   setAttributes('antialias', true);
   div.appendChild(canvas);
+
+  textFont(font);
+  textAlign(LEFT, TOP)
 
   // Initialize box2d physics and create the world
   world = createWorld();
@@ -31,6 +42,7 @@ function setup() {
   }
 
   performanceHistory = [];
+  avgPerformanceHistory = [];
 
   // Create a terrain
   let pos = createVector(-width/2, 10);
@@ -44,7 +56,12 @@ function setup() {
 function draw() {
     if (race.running) {
         background("#FF7F2A");
-        graphPreformanceHistory();
+        if(displayMode == "best"){
+          graphPreformanceHistory(camera.eyeX - 310, camera.eyeY - 290, 300, 150);
+        }else if(displayMode == "avg"){
+          graphAvgPreformanceHistory(camera.eyeX - 310, camera.eyeY - 290, 300, 150);
+        }
+        ShowBest(camera.eyeX + 200, camera.eyeY - 220);
     }
 
     race.update();
@@ -76,8 +93,9 @@ function raceOverCallback(finalLeaderboards) {
     //console.log(finalLeaderboards); 
     currentLeaderBoard = finalLeaderboards;
 
+    BestCar = currentLeaderBoard[0].car;
+
     performanceHistory.push(currentLeaderBoard[0].progress);
-    console.log(performanceHistory);
 
 
     //evolve
@@ -90,8 +108,18 @@ function raceOverCallback(finalLeaderboards) {
         cars[i] = car;
     }
 
+    // get average progress
+    let totalProgress = 0;
+    for(let position of finalLeaderboards){
+      totalProgress += position.progress;
+    }
+    let avgProgress = totalProgress / finalLeaderboards.length;
+    avgPerformanceHistory.push(avgProgress);
+
     // update display
-    document.getElementById("genCount").innerHTML = "Generation : " + ga.generation;
+    document.getElementById("genCount").innerHTML = "" + ga.generation;
+    document.getElementById("bestProgress").innerHTML = "" + performanceHistory[performanceHistory.length - 1];
+    document.getElementById("avgProgress").innerHTML = "" + avgProgress;
 
     race.setCars(cars);
     race.start();
@@ -114,23 +142,77 @@ function fitnessFunction(gene){
 }
 
 
-function graphPreformanceHistory(){
-  stroke(0);
+function graphPreformanceHistory(x0, y0, boxW, boxH){
+  strokeWeight(2);
+  fill("#FF7F2A");
+  stroke("yellow");
+  rect(x0, y0, boxW, boxH);
   strokeWeight(5);
-  boxW = 200;
-  boxH = 100;
   if(performanceHistory.length > 1){
     let x1 = 0;
     let y1 = performanceHistory[0];
     for(let i = 1; i < performanceHistory.length; i++){
-      let x2 = x1 + 1/performanceHistory.length;
+      let x2 = x1 + 1/(performanceHistory.length-1);
       let y2 = performanceHistory[i];
 
-      line(x1 * boxW, (1-y1) * boxH , x2 * boxW, (1-y2) * boxH);
+      line(x0 + (x1 * boxW), y0 + ((1-y1) * boxH), x0 + (x2 * boxW), y0 + ((1-y2) * boxH));
 
       x1 = x2;
       y1 = y2;
     }
-  }
+  }else if(performanceHistory[0]){line(x0, y0 + ((1-performanceHistory[0]) * boxH), x0 + boxW, y0 + ((1-performanceHistory[0]) * boxH))}
   strokeWeight(1);
+  stroke(0);
+  //stroke(128);
+  textSize(25);
+  fill("yellow")
+  text("Performance History (best)", x0 + 20, y0-5);
+  text("100%", x0 + boxW + 2, y0-5);
+  text("0%", x0 + boxW + 2, y0+boxH-32);
+}
+
+function graphAvgPreformanceHistory(x0, y0, boxW, boxH){
+  strokeWeight(2);
+  fill("#FF7F2A");
+  stroke("yellow");
+  rect(x0, y0, boxW, boxH);
+  strokeWeight(5);
+  if(avgPerformanceHistory.length > 1){
+    let x1 = 0;
+    let y1 = avgPerformanceHistory[0];
+    for(let i = 1; i < avgPerformanceHistory.length; i++){
+      let x2 = x1 + 1/(avgPerformanceHistory.length-1);
+      let y2 = avgPerformanceHistory[i];
+
+      line(x0 + (x1 * boxW), y0 + ((1-y1) * boxH), x0 + (x2 * boxW), y0 + ((1-y2) * boxH));
+
+      x1 = x2;
+      y1 = y2;
+    }
+  }else if(avgPerformanceHistory[0]){line(x0, y0 + ((1-avgPerformanceHistory[0]) * boxH), x0 + boxW, y0 + ((1-avgPerformanceHistory[0]) * boxH))}
+  strokeWeight(1);
+  stroke(0);
+  //stroke(128);
+  textSize(25);
+  fill("yellow")
+  text("Performance History (Avg)", x0 + 20, y0-5);
+  text("100%", x0 + boxW + 2, y0-5);
+  text("0%", x0 + boxW + 2, y0+boxH-32);
+}
+
+function ShowBest(x0, y0){
+  if(BestCar !== undefined){
+    BestCar.drawStatic(x0, y0);
+    textSize(25);
+    fill("yellow")
+    text("Best Car Last Gen", x0 - 100, y0 - 70);
+  }
+}
+
+function toggle(){
+  if(displayMode == "best"){
+    displayMode = "avg";
+  }else if(displayMode == "avg"){
+    displayMode = "best";
+  }
 }

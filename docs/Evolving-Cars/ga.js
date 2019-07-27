@@ -128,8 +128,4 @@ class GeneticAlgorithm {
             }
         }
     }
-
-    best() {
-
-    }
 }

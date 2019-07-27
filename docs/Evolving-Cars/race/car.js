@@ -171,6 +171,33 @@ class Car {
         pop();
     }
 
+    drawStatic(x0, y0) {
+        // Get the body's position
+        let bodyPos = createVector(x0, y0);
+
+        push();
+        translate(bodyPos.x, bodyPos.y);
+
+        // Draw body
+        beginShape(TRIANGLE_STRIP);
+            fill(this.bodyColor);
+            for(let v of this.vs) {
+
+                vertex(v.x,v.y);
+                vertex(0,0);
+            }
+        endShape();
+
+        // Draw wheels
+        fill(this.wheelsColor);
+
+        for(let w of this.ws) {
+            ellipse(this.vs[w.v].x, this.vs[w.v].y, w.r, w.r);
+        }
+
+        pop();
+    }
+
     getTimeStopped() {
         return this.timeStopped;
     }

@@ -39,13 +39,17 @@
       <tr>
         <td>
           <div id="content" class="content"></div> 
-          <p id="genCount" style="font-size: 20px">Generation : 1</p>
         </td>
         <td>
           <h1>Discription</h1>
           <p>
             This project uses a genetic algorithm to generate cars. Their fitness is jugded by their distance and their are bread using rullett wheel selection.
           </p>
+          <h1>Statistics</h1>
+          <p style="font-size: 20px">Generation : <span id="genCount">1</span></p>
+          <p style="font-size: 20px">Best Preformance Last Gen : <span id="bestProgress">0</span></p>
+          <p style="font-size: 20px">Average Preformance Last Gen : <span id="avgProgress">0</span></p>
+          <button class="button" style="width:50%" onclick="toggle();">Toggle Graph Mode</button>
         </td>
       </tr>
     </table>
