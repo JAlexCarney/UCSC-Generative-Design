@@ -4,6 +4,7 @@ let camera;
 let ga;
 let cars;
 let currentLeaderBoard;
+let performanceHistory;
 
 function setup() {
   let div = document.getElementById("content");
@@ -21,13 +22,15 @@ function setup() {
 
   // Create a list of cars
   let popSize = 20;
-  ga = new GeneticAlgorithm(popSize, 20, fitnessFunction, 0.2);
+  ga = new GeneticAlgorithm(popSize, 20, fitnessFunction, 0.3);
   cars = new Array(popSize);
   for(let i = 0; i < ga.popSize; i++) {
       let pos = createVector(0, -100);
       let car = new Car(pos.x, pos.y, "car" + i, ga.population[i].gens);
       cars[i] = car;
   }
+
+  performanceHistory = [];
 
   // Create a terrain
   let pos = createVector(-width/2, 10);
@@ -41,6 +44,7 @@ function setup() {
 function draw() {
     if (race.running) {
         background("#FF7F2A");
+        graphPreformanceHistory();
     }
 
     race.update();
@@ -69,8 +73,12 @@ function draw() {
 // ========================================
 function raceOverCallback(finalLeaderboards) {
     console.log("race over!");
-    console.log(finalLeaderboards); 
+    //console.log(finalLeaderboards); 
     currentLeaderBoard = finalLeaderboards;
+
+    performanceHistory.push(currentLeaderBoard[0].progress);
+    console.log(performanceHistory);
+
 
     //evolve
     ga.evolve();
@@ -103,4 +111,26 @@ function fitnessFunction(gene){
     }
   }
   return -1;
+}
+
+
+function graphPreformanceHistory(){
+  stroke(0);
+  strokeWeight(5);
+  boxW = 200;
+  boxH = 100;
+  if(performanceHistory.length > 1){
+    let x1 = 0;
+    let y1 = performanceHistory[0];
+    for(let i = 1; i < performanceHistory.length; i++){
+      let x2 = x1 + 1/performanceHistory.length;
+      let y2 = performanceHistory[i];
+
+      line(x1 * boxW, (1-y1) * boxH , x2 * boxW, (1-y2) * boxH);
+
+      x1 = x2;
+      y1 = y2;
+    }
+  }
+  strokeWeight(1);
 }

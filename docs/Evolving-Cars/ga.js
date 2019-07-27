@@ -123,7 +123,6 @@ class GeneticAlgorithm {
                 let feats = Car.randomFeatures();
                 for(let i = 0; i < 5; i++){
                     let index = floor(Math.random()*this.indSize);
-                    console.log(pop)
                     pop.gens[index] = feats[index]; 
                 }
             }
