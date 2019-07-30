@@ -87,15 +87,19 @@ class MidiPlayer {
         // Create empty piano roll.
         let pianoRoll = new Array(timeSteps);
         for (let i = 0; i < timeSteps; i++) {
-            pianoRoll[i] = new Array(128).fill(0);
+            pianoRoll[i] = new Array(256).fill(0);
         }
-
+        //console.log(pianoRoll);
         for(let note of notes) {
             let ts = floor(note.time/this.tsDuration);
             let pitch = note.midi;
             let duration = floor(note.duration/this.tsDuration);
 
-            pianoRoll[ts][pitch] = duration;
+            if(pianoRoll[ts]){
+                pianoRoll[ts][pitch] = duration;
+            }else{
+                console.log("error");
+            }
         }
 
         return pianoRoll;
