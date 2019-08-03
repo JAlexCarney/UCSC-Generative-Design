@@ -193,7 +193,7 @@ class MidiPlayer {
     }
 
     draw() {
-        background(240);
+        background("#FF7F2A");
 
         if (mouseIsPressed) {
             // if (this.isPlaying) {
@@ -214,7 +214,7 @@ class MidiPlayer {
 
         // Draw grid
         noFill();
-        stroke(255);
+        stroke("#FFDD55");
 
         let s = this.tsize;
         for (let i = 0; i < width/s; i++) {

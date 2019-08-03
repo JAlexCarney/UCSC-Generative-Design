@@ -57,6 +57,22 @@ td {
   width: 100%;
 }
 
+.buttonTwo {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  background-color: #333333;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  width: 120px;
+}
+
 .HomeButton {
   -webkit-appearance: button;
   -moz-appearance: button;
