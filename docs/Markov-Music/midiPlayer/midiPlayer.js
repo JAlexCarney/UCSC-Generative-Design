@@ -44,6 +44,7 @@ class MidiPlayer {
                     let midiData = _midiPlayer.parseMidi(midi);
 
                     // Create a piano roll (2D array) from the parsed midi
+                    console.log(filename);
                     let pianoRoll = _midiPlayer.notes2PianoRoll(midiData.duration, midiData.notes);
 
                     _midiPlayer.pianoRolls.push(pianoRoll);

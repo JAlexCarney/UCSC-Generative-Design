@@ -2,13 +2,13 @@
 let isClicked = false;
 
 function setup() {
-    let canvas = createCanvas(windowWidth, windowHeight);
+    let canvas = createCanvas(windowWidth - 200, windowHeight - 100);
     //let div = document.getElementById("content");
     //div.appendChild(canvas);
     background(240);
 
     button = createButton('Play');
-    button.position(width - 80, 20);
+    button.position(width - 80, 80);
     button.mousePressed(onButtonClicked);
 
     midiPlayer = new MidiPlayer();
